@@ -1,0 +1,28 @@
+
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.13.5
+    commands:
+      - pip install -r requirements.txt
+  pre_build:
+    commands:
+      - echo "Début du build"
+  build:
+    commands:
+      - pytest --junitxml=rapport/result.xml
+  post_build:
+    commands:
+      - echo "Build terminé avec succès"
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: .
+reports:
+  rapport:
+    files:
+      - rapport/result.xml
+    file-format: JUNITXML
